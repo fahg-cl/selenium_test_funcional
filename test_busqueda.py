@@ -10,7 +10,21 @@ from selenium.common.exceptions import TimeoutException
 
 
 import time
-driver = webdriver.Chrome()
+#driver = webdriver.Chrome()
+
+options = Options()
+options.add_argument('--headless=new')  # O '--headless' si falla
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--disable-gpu')
+options.add_argument('--remote-debugging-port=9222')
+options.add_argument('--user-data-dir=/tmp/chrome-user-data')  # Evita el conflicto
+
+driver = webdriver.Chrome(
+    service=Service(ChromeDriverManager().install()),
+    options=options
+)
+
 driver.get("https://duckduckgo.com/")
 
 # Buscar campo de texto
